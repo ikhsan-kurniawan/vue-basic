@@ -1,35 +1,41 @@
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
-</script>
-
 <template>
-  <div>
-    <!-- <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
-  </div>
-  <HelloWorld msg="Vite + Vue" /> -->
-  
-  <h1 class="text-blue-500 text-large underline">
-    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Similique numquam cumque soluta tempore minima reiciendis animi, illo doloremque ipsam iure! Magnam illum eligendi voluptatem placeat inventore maxime deserunt nihil accusantium?
-  </h1>
+  <div data-theme="cyberpunk" class="h-screen flex justify-center">
+    <!-- App
+    <Dashboard 
+      :Days="Days" 
+      Text="Text from App" 
+      Color="blue-500" 
+      class="border-2 border-green-600 p-5 m-3"
+      >
+      <p>This is slot</p>
+    </Dashboard> -->
+    <Login></Login>
   </div>
 </template>
 
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
-}
-</style>
+<script>
+import Dashboard from "./components/Dashboard.vue";
+import Login from "./components/Login.vue";
+
+export default {
+  components: {
+    Dashboard,
+    Login
+  },
+  setup() {
+    const Days = [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+      "Monday",
+    ];
+
+    return {Days};
+  },
+};
+</script>
+
+<style lang="scss" scoped></style>
