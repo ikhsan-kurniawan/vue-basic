@@ -1,39 +1,24 @@
 <template>
-  <div data-theme="cyberpunk" class="h-screen flex justify-center">
-    <!-- App
-    <Dashboard 
-      :Days="Days" 
-      Text="Text from App" 
-      Color="blue-500" 
-      class="border-2 border-green-600 p-5 m-3"
-      >
-      <p>This is slot</p>
-    </Dashboard> -->
-    <Login></Login>
-  </div>
+  <RouterView data-theme=""></RouterView>
 </template>
 
 <script>
-import Dashboard from "./components/Dashboard.vue";
-import Login from "./components/Login.vue";
+import { RouterLink, RouterView } from "vue-router";
+import Dashboard from "./components/pages/Dashboard.vue";
+import Login from "./components/auth/Login.vue";
+import MainLayout from "./components/layouts/MainLayout.vue";
 
 export default {
   components: {
+    MainLayout,
     Dashboard,
-    Login
+    Login,
+    RouterView,
+    RouterLink,
   },
   setup() {
-    const Days = [
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday",
-      "Saturday",
-      "Monday",
-    ];
-
-    return {Days};
+    
+    return {};
   },
 };
 </script>
