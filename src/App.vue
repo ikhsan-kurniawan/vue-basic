@@ -3,10 +3,11 @@
 </template>
 
 <script>
-import { RouterLink, RouterView } from "vue-router";
+import { RouterLink, RouterView, useRoute, useRouter } from "vue-router";
 import Dashboard from "./components/pages/Dashboard.vue";
 import Login from "./components/auth/Login.vue";
 import MainLayout from "./components/layouts/MainLayout.vue";
+import { onBeforeMount, onBeforeUnmount, onBeforeUpdate, watch } from "vue";
 
 export default {
   components: {
@@ -17,7 +18,36 @@ export default {
     RouterLink,
   },
   setup() {
-    
+    const router = useRouter()
+    const route = useRoute()
+
+    function checkRedirect() {
+      // const token = localStorage.getItem('userToken');
+
+      // if (route.path === '/') {
+      //   if (token) {
+      //     router.push({ name: 'Dashboard' });
+      //     return;
+      //   }
+      // }
+
+      // if (route.path !== '/' && !token) {
+      //   router.push({ name: 'home' });
+      // }
+    }
+
+    onBeforeMount(() => {
+      console.log(route)
+      checkRedirect();
+    })
+
+    watch(
+      () => route.path,
+      (newPath, oldPath) => {
+        checkRedirect()
+      }
+    )
+
     return {};
   },
 };

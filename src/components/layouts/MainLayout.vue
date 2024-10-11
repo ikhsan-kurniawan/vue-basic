@@ -8,6 +8,7 @@
                 <Breadcrumb class="mb-4" :items="breadcrumbItems" />
                 <slot></slot>
             </main>
+            <Footer></Footer>
         </div>
     </div>
 </template>
@@ -18,12 +19,14 @@ import Navbar from './partials/navbar.vue';
 import Breadcrumb from './partials/Breadcrumb.vue';
 import { useRoute } from 'vue-router';
 import { computed, ref } from 'vue';
+import Footer from './partials/Footer.vue';
 
 export default {
     components: {
         Sidebar,
         Navbar,
-        Breadcrumb
+        Breadcrumb,
+        Footer
     },
     setup() {
         const sidebarOpen = ref(true); // Menggunakan ref untuk sidebarOpen

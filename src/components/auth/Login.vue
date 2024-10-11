@@ -25,8 +25,9 @@
 
 <script>
 import axios from 'axios';
+import { jwtDecode } from 'jwt-decode';
 import Swal from 'sweetalert2';
-import { ref } from 'vue';
+import { inject, ref } from 'vue';
 import { RouterLink, RouterView, useRouter } from 'vue-router';
 
 export default {
@@ -40,8 +41,9 @@ export default {
         let password = ref('');
         const emailError = ref('');
         const passwordError = ref('');
-
         let isLoading = ref(false)
+        const $cookies = inject("$cookies");
+
 
         const validate = () => {
             emailError.value = '';
@@ -60,16 +62,6 @@ export default {
             return !emailError.value && !passwordError.value;
         };
 
-        const parseJwt = (token) => {
-            const base64Url = token.split('.')[1];
-            const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-            const jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function (c) {
-                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-            }).join(''));
-
-            return JSON.parse(jsonPayload);
-        };
-
         const login = () => {
             if (!validate()) return;
 
@@ -84,7 +76,10 @@ export default {
                 .then(response => {
                     // SET LOCAL STORAGE
                     localStorage.setItem('userToken', response.data.data.token);
-                    const payload = parseJwt(response.data.data.token);
+                    // this.$cookies.set("userToken", token, { expires: 1 / 24 });
+
+                    // const payload = parseJwt(response.data.data.token);
+                    const payload = jwtDecode(response.data.data.token);
                     localStorage.setItem('username', payload.Username);
                     localStorage.setItem('nik', payload.NIK);
                     localStorage.setItem('roles', JSON.stringify(payload['http://schemas.microsoft.com/ws/2008/06/identity/claims/role']));
