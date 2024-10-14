@@ -5,13 +5,18 @@ import Dashboard from "../components/pages/Dashboard.vue";
 import HelloWorld from "../components/HelloWorld.vue";
 import Universities from "../components/pages/Universities.vue";
 import Roles from "../components/pages/Roles.vue";
+import Accounts from "../components/pages/Accounts.vue";
 
 const router = createRouter({
     history: createWebHistory(),
     routes: [
         {
             path: "/",
-            name: "home",
+            redirect: "/login"
+        },
+        {
+            path: "/login",
+            name: "Login",
             component: Login,
             props: true,
         },
@@ -37,6 +42,12 @@ const router = createRouter({
             path: "/roles",
             name: "Roles",
             component: Roles,
+            props: true,
+        },
+        {
+            path: "/accounts",
+            name: "Accounts",
+            component: Accounts,
             props: true,
         },
     ],

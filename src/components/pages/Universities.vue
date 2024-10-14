@@ -37,31 +37,14 @@
                 class="border border-gray-300 rounded-lg p-2 w-56 focus:outline-none focus:ring-2 focus:ring-blue-500">
         </div>
 
-        <table class="table table-zebra">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="(university, index) in filteredUniversities" :key="university.id">
-                    <td>{{ (pageNumber - 1) * pageSize + index + 1 }}</td>
-                    <td>{{ university.id }}</td>
-                    <td>{{ university.name }}</td>
-                    <td>
-                        <button @click="editUniversity(university.id)" class="btn btn-sm btn-warning">
-                            Edit
-                        </button>
-                        <button @click="deleteUniversity(university.id)" class="ml-1 btn btn-sm btn-error">
-                            Delete
-                        </button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <GenericTable
+            :items="filteredUniversities"
+            :fields="['id', 'name']"
+            :headers="['ID', 'Name']"
+            @edit="editUniversity"
+            @delete="deleteUniversity"
+        />
+        
         <div class="pagination-controls mt-2">
             <button @click="prevPage" :disabled="pageNumber === 1" class="btn btn-sm">Previous</button>
             <span>Page {{ pageNumber }} of {{ totalPages }}</span>
@@ -74,10 +57,12 @@
 import axios from 'axios';
 import MainLayout from '../layouts/MainLayout.vue';
 import Swal from 'sweetalert2';
+import GenericTable from '../tables/GenericTable.vue';
 
 export default {
     components: {
-        MainLayout
+        MainLayout,
+        GenericTable
     },
     data() {
         return {
